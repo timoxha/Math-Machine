@@ -1,6 +1,6 @@
 import random
 from time import sleep
-
+#! from collorama import *
 incorrect = 0
 correct = 0
 

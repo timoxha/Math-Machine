@@ -1,6 +1,8 @@
 import random
 from time import sleep
-#! from collorama import *
+from colorama import *
+init()
+
 incorrect = 0
 correct = 0
 
@@ -15,7 +17,7 @@ def logo_ascii():
     sleep(0.2)
     print('   ********,,**,**/#%&(((((((((&%      *.   , #(///////**,***/#&%(***//*****(/*,&&(/*,.,/*,,(/     ')
     sleep(0.2)
-    print('   /***********,,*/#%&((((((/(% .   *    (#/    #(*/(/*,,,,,*%&@%#***//****///**@&#(((//#**,((     ')
+    print('   /***********,,*/#%&((((((/(% .   *    (#/    #(*/(/*,,,,,*%&@%@***//****///**@&#(((//#**,((     ')
     sleep(0.2)
     print('    ******,********/#%&(((((//#.        %%        (///////(/*///*/&#*****/(///***&&######/*,*(/    ')
     sleep(0.2)
@@ -77,14 +79,14 @@ def sum():
 
     result = num1 + num2
 
-    que = input(f'{num1} + {num2} = ')
+    que = input(Fore.YELLOW + f'{num1} + {num2} = ')
     if que == str(result):
-        print('Правильно!')
+        print(Fore.GREEN + 'Правильно!')
         correct += 1
     elif que == '/quit':
         main()
     else:
-        print("Неправильно! Правильный ответ:", result)
+        print(Fore.RED + "Неправильно! Правильный ответ:", result)
         incorrect += 1
 
 def min():
@@ -94,15 +96,14 @@ def min():
 
     result = num1 - num2
 
-    que = input(f'{num1} - {num2} = ')
+    que = input(Fore.YELLOW + f'{num1} - {num2} = ')
     if que == str(result):
-        print('Правильно!')
+        print(Fore.GREEN + 'Правильно!')
         correct += 1
     elif que == '/quit':
         main()
     else:
-        print("Неправильно! Правильный ответ: ", result)
-        incorrect += 1
+        print(Fore.RED + "Неправильно! Правильный ответ:", result)
 
 def double():
     global correct, incorrect
@@ -111,19 +112,47 @@ def double():
 
     result = num1 * num2
 
-    que = input(f'{num1} * {num2} = ')
+    que = input(Fore.YELLOW + f'{num1} * {num2} = ')
     if que == str(result):
-        print('Правильно!')
-        correct +=1
+        print(Fore.GREEN + 'Правильно!')
+        correct += 1
     elif que == '/quit':
         main()
     else:
-        print("Неправильно! Правильный ответ: ", result)
-        incorrect += 1
-        
-def main():
+        print(Fore.RED + "Неправильно! Правильный ответ:", result)
+
+def test_passed():
+    global correct, incorrect
+    print()
     sleep(1)
-    print('Совет: что-бы выйти из режима в любой момент напечатайте в поле с ответами: /quit')
+    print(Fore.RESET + 'Вы прошли тест!')
+    print()
+    sleep(1)
+    print(Fore.GREEN + f'правильно - {correct}')
+    print()
+    sleep(1)
+    print(Fore.RED + f'не правильно - {incorrect}')
+    print()
+    sleep(1)
+
+    total_questions = correct + incorrect
+    if total_questions > 0:
+        average_score = correct / total_questions
+        print(f'Средний балл: {average_score}')
+        print()
+    else:
+        print('Средний балл: 0.0')
+        print()
+    req = input('Напишите что-нибудь, чтобы вернуться в главное меню(Если хотите выйти, напишите /quit): ')
+    if req == '/quit':
+        quit()
+    incorrect = 0
+    correct = 0
+
+def main():
+    global correct, incorrect
+    sleep(1)
+    print(Fore.BLUE + 'Совет: что-бы выйти из режима в любой момент напечатайте в поле с ответами: /quit')
     sleep(3)
     symbols_que = input('Выбрите знак с которым будете тренироваться(+,-,*)(/quit тут работает!): ')
     
@@ -131,7 +160,7 @@ def main():
         quit()
     
     que_num = int(input('Сколько примеров вы хотите решить?: '))
-    print('Готово! Обратный отчёт! 3..')
+    print(Fore.GREEN + 'Готово! Обратный отчёт! 3..')
     sleep(1)
     print('2..')
     sleep(1)
@@ -141,154 +170,24 @@ def main():
     if symbols_que == '+':
         for _ in range(que_num):
             sum()
-        print('Вы прошли тест!')
-        print(f'правильно - {correct}')
-        print(f'не правильно - {incorrect}')
-
-        total_questions = correct + incorrect
-        if total_questions > 0:
-            average_score = correct / total_questions
-            print(f'Средний балл: {average_score}')
-        else:
-            print('Средний балл: 0.0')
-
-        req = input('Напишите что-нибудь, чтобы вернуться в главное меню(Если хотите выйти, напишите /quit): ')
-        if req == '/quit':
-            quit()
-
-        incorrect = 0
-        correct = 0
+        test_passed()
         main()
     elif symbols_que == '-':
         for _ in range(que_num):
             min()
-        print('Вы прошли тест!')
-        print(f'правильно - {correct}')
-        print(f'не правильно - {incorrect}')
-
-        total_questions = correct + incorrect
-        if total_questions > 0:
-            average_score = correct / total_questions
-            print(f'Средний балл: {average_score}')
-        else:
-            print('Средний балл: 0.0')
-
-        req = input('Напишите что-нибудь, чтобы вернуться в главное меню(Если хотите выйти, напишите /quit): ')
-        if req == '/quit':
-            quit()
-
-        incorrect = 0
-        correct = 0
+        test_passed()
         main()
     elif symbols_que == '*':
         for _ in range(que_num):
             double()
-        print('Вы прошли тест!')
-        print(f'правильно - {correct}')
-        print(f'не правильно - {incorrect}')
-
-        total_questions = correct + incorrect
-        if total_questions > 0:
-            average_score = correct / total_questions
-            print(f'Средний балл: {average_score}')
-        else:
-            print('Средний балл: 0.0')
-
-        req = input('Напишите что-нибудь, чтобы вернуться в главное меню(Если хотите выйти, напишите /quit): ')
-        if req == '/quit':
-            quit()
-
-        incorrect = 0
-        correct = 0
+        test_passed()
         main()
     else:
         print('Данного выбранного режима не существует')
         main()
 
 def frs_main():
-    global incorrect, correct
     logo_ascii()
-    sleep(1)
-    print('Совет: что-бы выйти из режима в любой момент напечатайте в поле с ответами: /quit')
-    sleep(3)
-    symbols_que = input('Выбрите знак с которым будете тренироваться(+,-,*)(/quit тут работает!): ')
-    
-    if symbols_que == '/quit':
-        quit()
-    
-    que_num = int(input('Сколько примеров вы хотите решить?: '))
-    print('Готово! Обратный отчёт! 3..')
-    sleep(1)
-    print('2..')
-    sleep(1)
-    print('1..')
-    sleep(1)
-
-    if symbols_que == '+':
-        for _ in range(que_num):
-            sum()
-        print('Вы прошли тест!')
-        print(f'правильно - {correct}')
-        print(f'не правильно - {incorrect}')
-
-        total_questions = correct + incorrect
-        if total_questions > 0:
-            average_score = correct / total_questions
-            print(f'Средний балл: {average_score}')
-        else:
-            print('Средний балл: 0.0')
-
-        req = input('Напишите что-нибудь, чтобы вернуться в главное меню(Если хотите выйти, напишите /quit): ')
-        if req == '/quit':
-            quit()
-
-        incorrect = 0
-        correct = 0
-        main()
-    elif symbols_que == '-':
-        for _ in range(que_num):
-            min()
-        print('Вы прошли тест!')
-        print(f'правильно - {correct}')
-        print(f'не правильно - {incorrect}')
-
-        total_questions = correct + incorrect
-        if total_questions > 0:
-            average_score = correct / total_questions
-            print(f'Средний балл: {average_score}')
-        else:
-            print('Средний балл: 0.0')
-
-        req = input('Напишите что-нибудь, чтобы вернуться в главное меню(Если хотите выйти, напишите /quit): ')
-        if req == '/quit':
-            quit()
-
-        incorrect = 0
-        correct = 0
-        main()
-    elif symbols_que == '*':
-        for _ in range(que_num):
-            double()
-        print('Вы прошли тест!')
-        print(f'правильно - {correct}')
-        print(f'не правильно - {incorrect}')
-
-        total_questions = correct + incorrect
-        if total_questions > 0:
-            average_score = correct / total_questions
-            print(f'Средний балл: {average_score}')
-        else:
-            print('Средний балл: 0.0')
-
-        req = input('Напишите что-нибудь, чтобы вернуться в главное меню(Если хотите выйти, напишите /quit): ')
-        if req == '/quit':
-            quit()
-
-        incorrect = 0
-        correct = 0
-        main()
-    else:
-        print('Данного выбранного режима не существует')
-        main()
+    main()
 
 frs_main()

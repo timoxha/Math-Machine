@@ -1,12 +1,15 @@
 import random
 from time import sleep
 from colorama import *
+import hashlib
 init()
 
+secs = 1
 incorrect = 0
 correct = 0
 
 def logo_ascii():
+    global secs
     print('                  /(#%%%%%%%%#(%#######(/(((***...                                                 ')
     sleep(0.2)
     print('             .(#****/#&(//(((((///////(/(((((((#########%####(#&@@&(((((((////////**/(***,,,...    ')
@@ -70,10 +73,13 @@ def logo_ascii():
     print('               (//*/#%&(#((###################%%%%%&&%&%#&%%%%%%%#%%%%%%%##((***...                ')
     sleep(0.2)
     print('                  ,(/#%%%%%%%##%%%%%#%(//***,,                                                     ')
-    sleep(1)
+    sleep(secs)
+
+def hashing(text):
+    return hashlib.sha256(text.encode()).hexdigest()
 
 def sum():
-    global correct, incorrect
+    global correct, incorrect, secs
     num1 = random.randint(0,9)
     num2 = random.randint(0,9)
 
@@ -92,7 +98,7 @@ def sum():
 def min():
     num1 = random.randint(0,9)
     num2 = random.randint(0,9)
-    global correct, incorrect
+    global correct, incorrect, secs
 
     result = num1 - num2
 
@@ -106,7 +112,7 @@ def min():
         print(Fore.RED + "Неправильно! Правильный ответ:", result)
 
 def double():
-    global correct, incorrect
+    global correct, incorrect, secs
     num1 = random.randint(0,9)
     num2 = random.randint(0,9)
 
@@ -122,18 +128,18 @@ def double():
         print(Fore.RED + "Неправильно! Правильный ответ:", result)
 
 def test_passed():
-    global correct, incorrect
+    global correct, incorrect, secs
     print()
-    sleep(1)
+    sleep(secs)
     print(Fore.RESET + 'Вы прошли тест!')
     print()
-    sleep(1)
+    sleep(secs)
     print(Fore.GREEN + f'правильно - {correct}')
     print()
-    sleep(1)
+    sleep(secs)
     print(Fore.RED + f'не правильно - {incorrect}')
     print()
-    sleep(1)
+    sleep(secs)
 
     total_questions = correct + incorrect
     if total_questions > 0:
@@ -150,10 +156,10 @@ def test_passed():
     correct = 0
 
 def main():
-    global correct, incorrect
-    sleep(1)
+    global correct, incorrect, secs
+    sleep(secs)
     print(Fore.BLUE + 'Совет: что-бы выйти из режима в любой момент напечатайте в поле с ответами: /quit')
-    sleep(3)
+    sleep(secs)
     symbols_que = input('Выбрите знак с которым будете тренироваться(+,-,*)(/quit тут работает!): ')
     
     if symbols_que == '/quit':
@@ -161,11 +167,11 @@ def main():
     
     que_num = int(input('Сколько примеров вы хотите решить?: '))
     print(Fore.GREEN + 'Готово! Обратный отчёт! 3..')
-    sleep(1)
+    sleep(secs)
     print('2..')
-    sleep(1)
+    sleep(secs)
     print('1..')
-    sleep(1)
+    sleep(secs)
 
     if symbols_que == '+':
         for _ in range(que_num):
@@ -187,7 +193,13 @@ def main():
         main()
 
 def frs_main():
+    global secs
+    password = input('Напишите пароль (только для админов. Если вы не админ, пропустите(нажмите пробел или напишите что-то)): ')
+    hash_pass = '0876dfca6d6fedf99b2ab87b6e2fed4bd4051ede78a8a9135b500b2e94d99b88'
+    hash_input_pass = hashing(password)
+    if hash_pass == hash_input_pass:
+        secs = 0.25
     logo_ascii()
     main()
-
+        
 frs_main()

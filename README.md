@@ -13,3 +13,9 @@ Update v1.1.0
 Update v1.2.0
 -Optimizate code
 -Added colorama
+
+#--
+
+Update v1.3.0
+-Admin mode
+-Data hashing

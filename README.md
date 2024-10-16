@@ -19,3 +19,8 @@ Update v1.2.0
 Update v1.3.0
 -Admin mode
 -Data hashing
+
+#--
+
+Update v1.4.0
+-Multi-problems added

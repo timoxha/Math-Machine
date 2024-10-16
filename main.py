@@ -155,12 +155,21 @@ def test_passed():
     incorrect = 0
     correct = 0
 
+def multi():
+    random_multi = random.choice(['sum', 'double', 'min'])
+    if random_multi == 'sum':
+        sum()
+    elif random_multi == 'double':
+        double()
+    elif random_multi == 'min':
+        min()
+
 def main():
     global correct, incorrect, secs
     sleep(secs)
     print(Fore.BLUE + 'Совет: что-бы выйти из режима в любой момент напечатайте в поле с ответами: /quit')
     sleep(secs)
-    symbols_que = input('Выбрите знак с которым будете тренироваться(+,-,*)(/quit тут работает!): ')
+    symbols_que = input('Выбрите знак с которым будете тренироваться(+,-,*)(напишите "+-*" чтобы запустить рандомный режим): ')
     
     if symbols_que == '/quit':
         quit()
@@ -188,17 +197,23 @@ def main():
             double()
         test_passed()
         main()
+    if symbols_que == '+-*':
+        for _ in range(que_num):
+            multi()
+        test_passed()
+        main()
     else:
         print('Данного выбранного режима не существует')
         main()
 
 def frs_main():
     global secs
-    password = input('Напишите пароль (только для админов. Если вы не админ, пропустите(нажмите пробел или напишите что-то)): ')
+    password = input(Fore.YELLOW + 'Напишите пароль (только для админов. Если вы не админ, пропустите(нажмите Enter или напишите что-то)): ')
     hash_pass = '0876dfca6d6fedf99b2ab87b6e2fed4bd4051ede78a8a9135b500b2e94d99b88'
     hash_input_pass = hashing(password)
     if hash_pass == hash_input_pass:
         secs = 0.25
+        main()
     logo_ascii()
     main()
         
